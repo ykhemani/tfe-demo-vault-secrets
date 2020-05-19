@@ -1,0 +1,10 @@
+terraform {
+  backend "remote" {
+    hostname = "<TFC or TFE endpoint - e.g. app.terraform.io>"
+    organization = "<org>"
+
+    workspaces {
+      name = "<workspace_name>"
+    }
+  }
+}
