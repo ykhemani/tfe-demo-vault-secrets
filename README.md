@@ -14,13 +14,11 @@ Be aware that secrets retrieved from Vault will persist in the Terraform state a
 
 ## Prequisites
 
-This example expects that:
+This example requires:
 
-* We have a Vault Cluster running and accessible from our Terraform workspace.
+* Vault Cluster accessible by our Terraform workspace.
 
-* If we are using Terraform Enterprise to run our Terraform code, that Terraform Enterprise is running.
-
-* A Terraform Workspace where we can run our Terraform code.
+* A workspace in Terraform Enterprise or Terraform CLI that is configured with environment variables required for provisioning in AWS (e.g. `AWS_ACCESS_KEY_ID` and `AWS_SECRET_ACCESS_KEY`).
 
 ## Configuration
 
