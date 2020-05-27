@@ -45,6 +45,9 @@ Note: If a secret is required at run time on the resources that we provision, th
 #### Environment Variables
 
 ```
+# TFE_SECRET_PATH -- Path to TFE secrets in Vault
+export TFE_SECRET_PATH=tfe.home.seva.cafe
+
 # KV_PATH -- KV v2 Secrets Engine Path
 export KV_PATH=kv
 
@@ -65,17 +68,17 @@ export APPROLE_AUTH_ROLE_NAME=tfe_ws1_role
 
 # TFE_ADDR -- Terraform Enterprise Address. e.g. https://app.terraform.io
 export TFE_ADDR=$( \
-  vault kv get -field=TFE_ADDR kv/tfe/tfe.home.seva.cafe \
+  vault kv get -field=TFE_ADDR kv/tfe/${TFE_SECRET_PATH} \
 )
 
 # TFE_ORG -- Name of your Terraform Enterprise Organization.
 export TFE_ORG=$( \
-  vault kv get -field=TFE_ORG kv/tfe/tfe.home.seva.cafe \
+  vault kv get -field=TFE_ORG kv/tfe/${TFE_SECRET_PATH} \
 )
 
 # TFE_TEAM_TOKEN -- Terraform Team or Individual Token
 export TFE_TEAM_TOKEN=$( \
-  vault kv get -field=TFE_TEAM_TOKEN kv/tfe/tfe.home.seva.cafe \
+  vault kv get -field=TFE_TEAM_TOKEN kv/tfe/${TFE_SECRET_PATH} \
 )
 
 # TFE_WORKSPACE_NAME -- Terraform workspace where we will run our Terraform code.
