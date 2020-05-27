@@ -30,10 +30,16 @@ We will configure some environment variables to facilitate our task.
 
 For the purposes of our demo, we will need to configure Vault with:
 
-1. A [Key/Value (KV) Secret Engine](https://www.vaultproject.io/docs/secrets/kv) in which we will store a static secret required by our Terraform code at provisioning time.
-2. The **static secret** required by our Terraform code at provisioning time.
-3. A [policy](https://www.vaultproject.io/docs/concepts/policies) that will allow our Terraform code to read the secret (an API key) that is required at provisioning time, as well as to manage its token.
+1. A [Key/Value (KV) Secret Engine](https://www.vaultproject.io/docs/secrets/kv) in which we will store a static secret required by our Terraform code at provisioning time. We can also use an existing KV secrets engine.
+
+2. The **static secret** required by our Terraform code **at provisioning time**.
+
+Note: If a secret is required at run time on the resources that we provision, that resource should be configured to authenticate with Vault and retrieve that secret from Vault.
+
+3. A [policy](https://www.vaultproject.io/docs/concepts/policies) that will allow our Terraform code to read the aforementioned secret, as well as to manage its token.
+
 4. An [AppRole Auth Method](https://www.vaultproject.io/docs/auth/approle) to enable our Terraform code to authenticate with Vault.
+
 5. An AppRole Role tied to the aforementioned policy that our Terraform code to authenticate with Vault.
 
 #### Environment Variables
@@ -59,17 +65,17 @@ export APPROLE_AUTH_ROLE_NAME=tfe_ws1_role
 
 # TFE_ADDR -- Terraform Enterprise Address. e.g. https://app.terraform.io
 export TFE_ADDR=$( \
-  vault kv get -field=TFE_ADDR kv/tfe/tfe.home.seva.cafe
+  vault kv get -field=TFE_ADDR kv/tfe/tfe.home.seva.cafe \
 )
 
 # TFE_ORG -- Name of your Terraform Enterprise Organization.
 export TFE_ORG=$( \
-  vault kv get -field=TFE_ORG kv/tfe/tfe.home.seva.cafe
+  vault kv get -field=TFE_ORG kv/tfe/tfe.home.seva.cafe \
 )
 
 # TFE_TEAM_TOKEN -- Terraform Team or Individual Token
 export TFE_TEAM_TOKEN=$( \
-  vault kv get -field=TFE_TEAM_TOKEN kv/tfe/tfe.home.seva.cafe
+  vault kv get -field=TFE_TEAM_TOKEN kv/tfe/tfe.home.seva.cafe \
 )
 
 # TFE_WORKSPACE_NAME -- Terraform workspace where we will run our Terraform code.
